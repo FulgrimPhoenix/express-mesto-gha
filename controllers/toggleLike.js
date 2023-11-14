@@ -6,13 +6,8 @@ module.exports.likeCard = (req, res) => {
       req.params.cardId,
       { $addToSet: { likes: req.user._id } },
       { new: true }
-    )
-      .then((result) => res.status(300).send(result))
-      .catch((err) =>
-        res
-          .status(500)
-          .send({ message: `что-то не так на стороне сервера: ${err.message}` })
-      );
+    ).then((result) => res.status(300).send(result));
+    res.status(500).json({ message: "На сервере произошла ошибка" });
   } catch {
     res.status(404).send({ message: "карточка не найдена" });
   }
@@ -24,13 +19,8 @@ module.exports.dislikeCard = (req, res) => {
       req.params.cardId,
       { $pull: { likes: req.user._id } },
       { new: true }
-    )
-      .then((result) => res.status(200).send(result))
-      .catch((err) =>
-        res
-          .status(500)
-          .send({ message: `что-то не так на стороне сервера: ${err.message}` })
-      );
+    ).then((result) => res.status(200).send(result));
+    res.status(500).json({ message: "На сервере произошла ошибка" });
   } catch (error) {
     res.status(404).send({ message: `карточка не найдена. ${error.message}` });
   }

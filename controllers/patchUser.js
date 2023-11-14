@@ -10,7 +10,7 @@ const patchUser = (req, res) => {
         res.status(200).json(user);
       })
       .catch((err) =>
-        console.log("Something goes wrong:", res.status(500).json(err))
+        res.status(500).json({ message: "На сервере произошла ошибка" })
       );
   } catch (error) {
     res

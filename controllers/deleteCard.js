@@ -7,7 +7,7 @@ module.exports.deleteCard = (req, res) => {
         res.status(200).json(result);
       })
       .catch((err) =>
-        console.log("Something goes wrong:", res.status(500).json(err.message))
+        res.status(500).json({ message: "На сервере произошла ошибка" })
       );
   } catch (error) {
     return res.status(404).send({

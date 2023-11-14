@@ -10,12 +10,14 @@ const postCard = (req, res) => {
         res.status(201).json(result);
       })
       .catch((err) =>
-        console.log("Something goes wrong:", res.status(500).json(err.message))
+        res.status(500).json({ message: "На сервере произошла ошибка" })
       );
-  } catch (error){
+  } catch (error) {
     return res
       .status(404)
-      .send({ message: `Не верный запрос. Не удалось создать карточку. ${error.message}` });
+      .send({
+        message: `Не верный запрос. Не удалось создать карточку. ${error.message}`,
+      });
   }
 };
 
