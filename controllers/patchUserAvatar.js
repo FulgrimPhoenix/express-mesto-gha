@@ -7,7 +7,7 @@ const patchUserAvatar = (req, res) => {
         res.status(200).json(user);
       })
       .catch((err) =>
-        res.status(500).json({ message: "На сервере произошла ошибка" })
+        res.status(400).json({ message: "На сервере произошла ошибка" })
       );
   } catch (error) {
     res

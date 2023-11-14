@@ -7,7 +7,7 @@ const getUsers = (req, res) => {
         res.status(200).json(users);
       })
       .catch((err) =>
-        res.status(500).json({ message: "На сервере произошла ошибка" })
+        res.status(400).json({ message: "На сервере произошла ошибка" })
       );
   } catch (error) {
     res

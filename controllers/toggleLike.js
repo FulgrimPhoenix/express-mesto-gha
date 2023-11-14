@@ -7,7 +7,7 @@ module.exports.likeCard = (req, res) => {
       { $addToSet: { likes: req.user._id } },
       { new: true }
     ).then((result) => res.status(300).send(result));
-    res.status(500).json({ message: "На сервере произошла ошибка" });
+    res.status(400).json({ message: "На сервере произошла ошибка" });
   } catch {
     res.status(404).send({ message: "карточка не найдена" });
   }
@@ -20,7 +20,7 @@ module.exports.dislikeCard = (req, res) => {
       { $pull: { likes: req.user._id } },
       { new: true }
     ).then((result) => res.status(200).send(result));
-    res.status(500).json({ message: "На сервере произошла ошибка" });
+    res.status(400).json({ message: "На сервере произошла ошибка" });
   } catch (error) {
     res.status(404).send({ message: `карточка не найдена. ${error.message}` });
   }
