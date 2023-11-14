@@ -28,6 +28,6 @@ module.exports.dislikeCard = (req, res) => {
         res.status(400).json({ message: "Неверный запрос" });
       });
   } catch (error) {
-    res.status(404).send({ message: `карточка не найдена. ${error.message}` });
+    res.status(400).send({ message: `карточка не найдена. ${error.message}` });
   }
 };
