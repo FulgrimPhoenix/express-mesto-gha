@@ -10,7 +10,7 @@ const createUser = (req, res) => {
         res.status(201).json(user);
       })
       .catch((err) =>
-        res.status(400).json({ message: "На сервере произошла ошибка" })
+        res.status(400).json({ message: "Неверный запрос" })
       );
   } catch (error) {
     res

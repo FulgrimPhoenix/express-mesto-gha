@@ -10,7 +10,7 @@ const postCard = (req, res) => {
         res.status(201).json(result);
       })
       .catch((err) =>
-        res.status(400).json({ message: "На сервере произошла ошибка" })
+        res.status(400).json({ message: "Неверный запрос" })
       );
   } catch (error) {
     return res
