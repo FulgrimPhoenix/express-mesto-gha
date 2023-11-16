@@ -8,7 +8,8 @@ const cardsRouter = require('./cardsRouter');
 const cardsPostRouter = require('./cardsPostRouter');
 const cardsPutLikeRouter = require('./cardsPutLike');
 const cardsDeleteLikeRouter = require('./cardsDeleteLikeRouter');
-const cardsDeleteCardRouter = require('./cardsDeleteCardRouter')
+const cardsDeleteCardRouter = require('./cardsDeleteCardRouter');
+const errorPath = require('./errors');
 
 const router = Router()
 
@@ -23,6 +24,7 @@ router.use('/cards', cardsPostRouter);
 router.use('/cards', cardsDeleteLikeRouter);
 router.use('/cards', cardsPutLikeRouter);
 router.use('/cards', cardsDeleteCardRouter);
+router.use('/', errorPath);
 
 
 module.exports = router;

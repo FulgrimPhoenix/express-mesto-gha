@@ -7,7 +7,14 @@ module.exports.likeCard = (req, res) => {
       { $addToSet: { likes: req.user._id } },
       { new: true }
     )
-      .then((result) => res.status(200).send(result))
+      .then((card) => {
+        if (!card) {
+          return res
+            .status(404)
+            .send({ message: "карточка с данным id не найдена" });
+        }
+        res.status(200).send(card);
+      })
       .catch(() => {
         res.status(400).json({ message: "Неверный запрос" });
       });
@@ -23,7 +30,14 @@ module.exports.dislikeCard = (req, res) => {
       { $pull: { likes: req.user._id } },
       { new: true }
     )
-      .then((result) => res.status(200).send(result))
+      .then((card) => {
+        if (!card) {
+          return res
+            .status(404)
+            .send({ message: "карточка с данным id не найдена" });
+        }
+        res.status(200).send(card);
+      })
       .catch(() => {
         res.status(400).json({ message: "Неверный запрос" });
       });
