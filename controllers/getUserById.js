@@ -15,7 +15,7 @@ const getUserById = (req, res) => {
     if (err.name === "ValidationError") {
       res.status(400).send({ message: err.message });
     }
-    res.status(500)({message: 'Ошибка на стороне сервера'})
+    res.status(500)({message: 'На сервере произошла ошибка'})
   }
 };
 

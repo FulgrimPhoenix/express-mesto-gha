@@ -16,10 +16,10 @@ const patchUserAvatar = (req, res) => {
       .catch((err) =>
         res.status(400).json({ message: "Неверный запрос" })
       );
-  } catch (error) {
+  } catch {
     res
-      .status(400)
-      .send({ message: `не корректные данные запроса. ${error.message}` });
+      .status(500)
+      .send({ message: `На сервере произошла ошибка` });
   }
 };
 

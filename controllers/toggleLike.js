@@ -19,7 +19,7 @@ module.exports.likeCard = (req, res) => {
         res.status(400).json({ message: "Неверный запрос" });
       });
   } catch {
-    res.status(404).send({ message: "карточка не найдена" });
+    res.status(500).send({ message: `На сервере произошла ошибка` });
   }
 };
 
@@ -41,7 +41,7 @@ module.exports.dislikeCard = (req, res) => {
       .catch(() => {
         res.status(400).json({ message: "Неверный запрос" });
       });
-  } catch (error) {
-    res.status(400).send({ message: `карточка не найдена. ${error.message}` });
+  } catch {
+    res.status(500).send({ message: `На сервере произошла ошибка` });
   }
 };

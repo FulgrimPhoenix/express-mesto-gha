@@ -12,7 +12,7 @@ module.exports.deleteCard = (req, res) => {
       .catch(() => res.status(400).json({ message: "Неверный запрос" }));
   } catch (error) {
     return res.status(500).send({
-      message: 'Ошибка на стороне сервера',
+      message: 'На сервере произошла ошибка',
     });
   }
 };
