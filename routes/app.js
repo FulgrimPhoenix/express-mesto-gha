@@ -10,8 +10,13 @@ import cardsPutLikeRouter from './cardsPutLike.js';
 import cardsDeleteLikeRouter from './cardsDeleteLikeRouter.js';
 import cardsDeleteCardRouter from './cardsDeleteCardRouter.js';
 import errorPath from './errors.js';
+import { login } from '../controllers/login.js';
+import createUser from '../controllers/createUser.js';
 
 const router = Router()
+
+router.post('/signin', login);
+router.post('/signup', createUser);
 
 router.use('/users', usersRouter);
 router.use('/users', usersIdRouter);

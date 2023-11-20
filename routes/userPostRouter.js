@@ -1,4 +1,4 @@
-import postUser from '../controllers/postUser.js'
+import postUser from '../controllers/createUser.js'
 import { Router } from 'express';
 
 const usersPostRouter = Router();
