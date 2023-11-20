@@ -1,11 +1,10 @@
-const router = require("./routes/app");
+import router from './routes/app.js'
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 app.use(express.json());
 
-const { PORT = 3000 } = process.env;
-const URL = "mongodb://0.0.0.0:27017/mestodb";
+const { PORT = 3000, URL = "mongodb://0.0.0.0:27017/mestodb" } = process.env;
 
 mongoose
   .connect(URL)

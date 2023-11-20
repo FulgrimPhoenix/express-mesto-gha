@@ -1,4 +1,4 @@
-const { Router } = require('express');
+import { Router } from 'express';
 const usersRouter = require('./usersRouter');
 const usersIdRouter = require('./userIdRouter');
 const usersPostRouter = require('./userPostRouter');
@@ -27,4 +27,4 @@ router.use('/cards', cardsDeleteCardRouter);
 router.use('/', errorPath);
 
 
-module.exports = router;
+export default router;
