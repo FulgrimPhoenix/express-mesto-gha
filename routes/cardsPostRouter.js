@@ -1,8 +1,8 @@
-const postCard = require('../controllers/postCard')
-const { Router } = require("express");
+import postCard from '../controllers/postCard.js';
+import { Router } from 'express';
 
 const cardsPostRouter = Router();
 
 cardsPostRouter.post('/', postCard);
 
-module.exports = cardsPostRouter;
+export default cardsPostRouter;

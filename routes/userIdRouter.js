@@ -1,8 +1,8 @@
-const getUserById = require('../controllers/getUserById')
-const { Router } = require("express");
+import getUserById from '../controllers/getUserById.js'
+import { Router } from 'express';
 
 const usersIdRouter = Router();
 
 usersIdRouter.get('/:id', getUserById);
 
-module.exports = usersIdRouter;
+export default usersIdRouter;

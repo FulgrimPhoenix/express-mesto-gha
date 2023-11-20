@@ -1,6 +1,6 @@
-const Card = require("../models/card");
+import Card from '../models/card.js';
 
-module.exports.likeCard = (req, res) => {
+export const likeCard = (req, res) => {
   try {
     Card.findByIdAndUpdate(
       req.params.cardId,
@@ -23,7 +23,7 @@ module.exports.likeCard = (req, res) => {
   }
 };
 
-module.exports.dislikeCard = (req, res) => {
+export const dislikeCard = (req, res) => {
   try {
     Card.findByIdAndUpdate(
       req.params.cardId,

@@ -1,4 +1,4 @@
-const Card = require("../models/card");
+import Card from '../models/card.js';
 
 const postCard = (req, res) => {
   try {
@@ -21,4 +21,4 @@ const postCard = (req, res) => {
   }
 };
 
-module.exports = postCard;
+export default postCard;

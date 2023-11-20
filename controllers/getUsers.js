@@ -1,4 +1,4 @@
-const User = require("../models/user");
+import User from '../models/user.js';
 
 const getUsers = (req, res) => {
   try {
@@ -16,4 +16,4 @@ const getUsers = (req, res) => {
   }
 };
 
-module.exports = getUsers;
+export default getUsers;

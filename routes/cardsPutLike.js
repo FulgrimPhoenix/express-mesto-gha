@@ -1,8 +1,8 @@
-const { likeCard } = require('../controllers/toggleLike')
-const { Router } = require("express");
+import { likeCard } from '../controllers/toggleLike.js';
+import { Router } from 'express';
 
 const cardsPutLikeRouter = Router();
 
 cardsPutLikeRouter.put('/:cardId/likes',  likeCard);
 
-module.exports = cardsPutLikeRouter;
+export default cardsPutLikeRouter;

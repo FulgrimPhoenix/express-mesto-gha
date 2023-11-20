@@ -1,8 +1,8 @@
-const { deleteCard } = require('../controllers/deleteCard')
-const { Router } = require("express");
+import { deleteCard } from '../controllers/deleteCard.js';
+import { Router } from 'express';
 
 const cardsDeleteCardRouter = Router();
 
 cardsDeleteCardRouter.delete('/:cardId',  deleteCard);
 
-module.exports = cardsDeleteCardRouter;
+export default cardsDeleteCardRouter;

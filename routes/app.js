@@ -1,15 +1,15 @@
 import { Router } from 'express';
-const usersRouter = require('./usersRouter');
-const usersIdRouter = require('./userIdRouter');
-const usersPostRouter = require('./userPostRouter');
-const usersPatchProfileRouter = require('./usersPatchProfileRouter');
-const usersPatchAvatarRouter = require('./usersPatchAvatarRouter');
-const cardsRouter = require('./cardsRouter');
-const cardsPostRouter = require('./cardsPostRouter');
-const cardsPutLikeRouter = require('./cardsPutLike');
-const cardsDeleteLikeRouter = require('./cardsDeleteLikeRouter');
-const cardsDeleteCardRouter = require('./cardsDeleteCardRouter');
-const errorPath = require('./errors');
+import usersRouter from './usersRouter.js';
+import usersIdRouter from './userIdRouter.js';
+import usersPostRouter from './userPostRouter.js';
+import usersPatchProfileRouter from './usersPatchProfileRouter.js';
+import usersPatchAvatarRouter from './usersPatchAvatarRouter.js';
+import cardsRouter from './cardsRouter.js';
+import cardsPostRouter from './cardsPostRouter.js';
+import cardsPutLikeRouter from './cardsPutLike.js';
+import cardsDeleteLikeRouter from './cardsDeleteLikeRouter.js';
+import cardsDeleteCardRouter from './cardsDeleteCardRouter.js';
+import errorPath from './errors.js';
 
 const router = Router()
 

@@ -1,4 +1,4 @@
-const User = require("../models/user");
+import User from '../models/user.js';
 
 const createUser = (req, res) => {
   try {
@@ -19,4 +19,4 @@ const createUser = (req, res) => {
   }
 };
 
-module.exports = createUser;
+export default createUser;

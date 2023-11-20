@@ -1,8 +1,8 @@
-const postUser = require('../controllers/postUser')
-const { Router } = require("express");
+import postUser from '../controllers/patchUser.js'
+import { Router } from 'express';
 
 const usersPostRouter = Router();
 
 usersPostRouter.post('/', postUser);
 
-module.exports = usersPostRouter;
+export default usersPostRouter;

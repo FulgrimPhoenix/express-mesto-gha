@@ -1,7 +1,7 @@
 import router from './routes/app.js'
-const express = require("express");
+import express from 'express';
+import mongoose from 'mongoose';
 const app = express();
-const mongoose = require("mongoose");
 app.use(express.json());
 
 const { PORT = 3000, URL = "mongodb://0.0.0.0:27017/mestodb" } = process.env;

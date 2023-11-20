@@ -1,4 +1,4 @@
-const User = require("../models/user");
+import User from '../models/user.js';
 
 const patchUser = (req, res) => {
   try {
@@ -22,4 +22,4 @@ const patchUser = (req, res) => {
   }
 };
 
-module.exports = patchUser;
+export default patchUser;

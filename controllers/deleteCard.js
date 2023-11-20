@@ -1,6 +1,6 @@
-const Card = require("../models/card");
+import Card from '../models/card.js';
 
-module.exports.deleteCard = (req, res) => {
+export const deleteCard = (req, res) => {
   try {
     Card.findByIdAndDelete(req.params.cardId)
       .then((card) => {

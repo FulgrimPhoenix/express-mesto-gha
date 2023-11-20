@@ -1,8 +1,8 @@
-const getCards = require('../controllers/getCards')
-const { Router } = require("express");
+import getCards from '../controllers/getCards.js';
+import { Router } from 'express';
 
 const cardsRouter = Router();
 
 cardsRouter.get('/', getCards);
 
-module.exports = cardsRouter;
+export default cardsRouter;

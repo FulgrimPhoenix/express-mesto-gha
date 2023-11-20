@@ -1,4 +1,4 @@
-const Card = require("../models/card");
+import Card from '../models/card.js';
 
 const getCards = (req, res) => {
   try {
@@ -16,4 +16,4 @@ const getCards = (req, res) => {
   }
 };
 
-module.exports = getCards;
+export default getCards;

@@ -1,8 +1,9 @@
-const patchUserAvatar = require('../controllers/patchUserAvatar')
-const { Router } = require("express");
+import patchUserAvatar from '../controllers/patchUserAvatar.js';
+import { Router } from 'express';
+
 
 const usersPatchAvatarRouter = Router();
 
 usersPatchAvatarRouter.patch('/me/avatar', patchUserAvatar);
 
-module.exports = usersPatchAvatarRouter;
+export default usersPatchAvatarRouter;

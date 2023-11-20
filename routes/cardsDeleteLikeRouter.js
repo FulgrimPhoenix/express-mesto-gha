@@ -1,8 +1,8 @@
-const { dislikeCard } = require('../controllers/toggleLike')
-const { Router } = require("express");
+import { dislikeCard } from '../controllers/toggleLike.js';
+import { Router } from 'express';
 
 const cardsDeleteLikeRouter = Router();
 
 cardsDeleteLikeRouter.delete('/:cardId/likes',  dislikeCard);
 
-module.exports = cardsDeleteLikeRouter;
+export default cardsDeleteLikeRouter;
