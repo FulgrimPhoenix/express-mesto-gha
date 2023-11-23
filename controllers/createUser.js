@@ -19,7 +19,7 @@ const createUser = (req, res) => {
             .then((user) => {
               res.status(201).json(user);
             })
-            .catch((err) =>
+            .catch(() =>
               res.status(400).json({ message: "Неверный запрос" })
             );
         }
