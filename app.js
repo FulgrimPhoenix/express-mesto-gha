@@ -15,12 +15,4 @@ app.listen(PORT, (err) => {
   err ? console.log(err) : console.log(`server listening PORT:${PORT}`);
 });
 
-// app.use((req, res, next) => {
-//   req.user = {
-//     _id: '655b72d72a9d400e76d7904c'
-//   };
-
-//   next();
-// });
-
 app.use(router);
