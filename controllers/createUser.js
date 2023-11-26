@@ -4,39 +4,34 @@ import bcryptjs from "bcryptjs";
 
 const createUser = (req, res, next) => {
   try {
-    if(req.body.email){
-      bcryptjs.hash(req.body.password, 10).then((hash) => {
-        User.findOne({ email: req.body.email })
-          .then((user) => {
-            if (!user) {
-              console.log(321);
-              const newUser = new User({
-                name: req.body.name,
-                about: req.body.about,
-                avatar: req.body.avatar,
-                email: req.body.email,
-                password: hash,
-              });
-              console.log(newUser);
-              return newUser
-                .save()
-                .then((user) => {
-                  console.log(456);
-                  res.status(201).json(user);
-                  if (!user) {
-                    throw new BadRequest("Неверый запрос");
-                  }
-                })
-                .catch(next);
-            }
-            throw new AuthError("Пользователь уже существует");
-          })
-          .catch(next);
-      })}else{
-        throw new BadRequest("дьявольщина");
-      }
+    bcryptjs.hash(req.body.password, 10).then((hash) => {
+      User.findOne({ email: req.body.email })
+        .then((user) => {
+          if (!user) {
+            const newUser = new User({
+              name: req.body.name,
+              about: req.body.about,
+              avatar: req.body.avatar,
+              email: req.body.email,
+              password: hash,
+            });
+
+            return newUser
+              .save()
+              .catch(() => {
+                throw new BadRequest("Данные введены неверно");
+              })
+              .then((user) => {
+                res.status(201).json(user);
+              })
+              .catch(next);
+          }
+          throw new AuthError("Пользователь уже существует");
+        })
+        .catch(next);
+    });
   } catch {
-    next()
+    next();
   }
 };
 

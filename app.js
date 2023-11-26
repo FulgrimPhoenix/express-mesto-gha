@@ -1,6 +1,7 @@
 import router from './routes/app.js'
 import express from 'express';
 import mongoose from 'mongoose';
+import { errors } from 'celebrate';
 const app = express();
 app.use(express.json());
 
@@ -16,6 +17,8 @@ app.listen(PORT, (err) => {
 });
 
 app.use(router);
+
+app.use(errors());
 app.use((err, req, res, next) => {
   // если у ошибки нет статуса, выставляем 500
   const { statusCode = 500, message } = err;
