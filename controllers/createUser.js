@@ -1,33 +1,42 @@
+import { AuthError, BadRequest, NotFoundError } from "../errors/errors.js";
 import User from "../models/user.js";
 import bcryptjs from "bcryptjs";
 
-const createUser = (req, res) => {
+const createUser = (req, res, next) => {
   try {
-    bcryptjs.hash(req.body.password, 10).then((hash) => {
-      User.findOne({ email: req.body.email }).then((user) => {
-        if (!user) {
-          const newUser = new User({
-            name: req.body.name,
-            about: req.body.about,
-            avatar: req.body.avatar,
-            email: req.body.email,
-            password: hash,
-          });
-
-          return newUser
-            .save()
-            .then((user) => {
-              res.status(201).json(user);
-            })
-            .catch(() =>
-              res.status(400).json({ message: "Неверный запрос" })
-            );
-        }
-        return res.status(404).json({ message: "Пользователь уже существует" });
-      });
-    });
+    if(req.body.email){
+      bcryptjs.hash(req.body.password, 10).then((hash) => {
+        User.findOne({ email: req.body.email })
+          .then((user) => {
+            if (!user) {
+              console.log(321);
+              const newUser = new User({
+                name: req.body.name,
+                about: req.body.about,
+                avatar: req.body.avatar,
+                email: req.body.email,
+                password: hash,
+              });
+              console.log(newUser);
+              return newUser
+                .save()
+                .then((user) => {
+                  console.log(456);
+                  res.status(201).json(user);
+                  if (!user) {
+                    throw new BadRequest("Неверый запрос");
+                  }
+                })
+                .catch(next);
+            }
+            throw new AuthError("Пользователь уже существует");
+          })
+          .catch(next);
+      })}else{
+        throw new BadRequest("дьявольщина");
+      }
   } catch {
-    res.status(500).send({ message: `На сервере произошла ошибка` });
+    next()
   }
 };
 

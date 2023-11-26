@@ -19,20 +19,20 @@ const router = Router()
 router.post('/signin', login);
 router.post('/signup', createUser);
 
-router.use(auth);
-router.use('/users', usersRouter);
-router.use('/users', usersMeRouter);
-router.use('/users', usersIdRouter);
-router.use('/users', usersPatchProfileRouter);
-router.use('/users', usersPatchAvatarRouter);
+router.use('/users', auth, usersRouter);
+router.use('/users', auth, usersMeRouter);
+router.use('/users', auth, usersIdRouter);
+router.use('/users', auth, usersPatchProfileRouter);
+router.use('/users', auth, usersPatchAvatarRouter);
 
 
-router.use('/cards', cardsRouter);
-router.use('/cards', cardsPostRouter);
-router.use('/cards', cardsDeleteLikeRouter);
-router.use('/cards', cardsPutLikeRouter);
-router.use('/cards', cardsDeleteCardRouter);
+router.use('/cards', auth, cardsRouter);
+router.use('/cards', auth, cardsPostRouter);
+router.use('/cards', auth, cardsDeleteLikeRouter);
+router.use('/cards', auth, cardsPutLikeRouter);
+router.use('/cards', auth, cardsDeleteCardRouter);
 router.use('/', errorPath);
+
 
 export default router;
 
