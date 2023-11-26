@@ -22,7 +22,7 @@ router.post(
   celebrate({
     body: Joi.object().keys({
       email: Joi.string().required().email(),
-      password: Joi.string().required().min(8)
+      password: Joi.string().required().min(8),
     }),
   }),
   login
@@ -48,7 +48,17 @@ router.use("/users", auth, usersPatchProfileRouter);
 router.use("/users", auth, usersPatchAvatarRouter);
 
 router.use("/cards", auth, cardsRouter);
-router.use("/cards", auth, cardsPostRouter);
+router.use(
+  "/cards",
+  auth,
+  celebrate({
+    body: Joi.object().keys({
+      title: Joi.string().required(),
+      link: Joi.string().required(),
+    }),
+  }),
+  cardsPostRouter
+);
 router.use("/cards", auth, cardsDeleteLikeRouter);
 router.use("/cards", auth, cardsPutLikeRouter);
 router.use("/cards", auth, cardsDeleteCardRouter);
