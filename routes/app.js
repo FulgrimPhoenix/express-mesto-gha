@@ -35,5 +35,3 @@ router.use('/', errorPath);
 
 
 export default router;
-
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTViNzJkNzJhOWQ0MDBlNzZkNzkwNGMiLCJpYXQiOjE3MDA3MzQ1MjksImV4cCI6MTcwMTMzOTMyOX0.kjl0AR45WegxvGvj3UfQLqp4-NNFL12NdqKDypmGoRg
