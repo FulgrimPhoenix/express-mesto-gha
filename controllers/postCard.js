@@ -7,7 +7,7 @@ const postCard = (req, res) => {
     newCard
       .save()
       .then((result) => {
-        res.status(201).json(result);
+        res.status(201).json({_id: result._id});
       })
       .catch((err) =>
         res.status(400).json({ message: "Неверный запрос" })

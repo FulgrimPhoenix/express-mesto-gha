@@ -1,4 +1,4 @@
-import { AuthError, BadRequest, NotFoundError } from "../errors/errors.js";
+import { AuthError, BadRequest, NotFoundError, userAlreadyExists } from "../errors/errors.js";
 import User from "../models/user.js";
 import bcryptjs from "bcryptjs";
 
@@ -22,11 +22,16 @@ const createUser = (req, res, next) => {
                 throw new BadRequest("Данные введены неверно");
               })
               .then((user) => {
-                res.status(201).json(user);
+                res
+                  .status(201)
+                  .json({data : {
+                    _id: user._id,
+                    email: user.email,
+                  }});
               })
               .catch(next);
           }
-          throw new AuthError("Пользователь уже существует");
+          throw new userAlreadyExists("Пользователь уже существует");
         })
         .catch(next);
     });

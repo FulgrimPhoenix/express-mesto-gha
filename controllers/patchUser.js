@@ -2,6 +2,7 @@ import User from '../models/user.js';
 
 const patchUser = (req, res) => {
   try {
+    console.log(req.user);
     User.findByIdAndUpdate(req.user._id, {
       name: req.body.name,
       about: req.body.about,

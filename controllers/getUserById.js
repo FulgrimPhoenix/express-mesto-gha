@@ -1,7 +1,9 @@
 import User from '../models/user.js';
 
 const getUserById = (req, res) => {
+  console.log(req.params, 1);
   try {
+
     User.findById(req.params.id).then((user) => {
       if (!user) {
         return res

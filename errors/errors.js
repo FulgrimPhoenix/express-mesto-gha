@@ -18,3 +18,10 @@ export class AuthError extends Error {
     this.statusCode = 401;
   }
 }
+
+export class userAlreadyExists extends Error {
+  constructor(message) {
+    super(message);
+    this.statusCode = 409;
+  }
+}
