@@ -1,18 +1,18 @@
+import { BadRequest } from '../errors/errors.js';
 import User from '../models/user.js';
 
-const getUsers = (req, res) => {
+const getUsers = (req, res, next) => {
   try {
     User.find({})
       .then((users) => {
-        res.status(200).json(users);
+        if (!users){
+          throw new BadRequest('неверный запрос')
+        }
+        return res.status(200).json(users);
       })
-      .catch((err) =>
-        res.status(400).json({ message: "Неверный запрос" })
-      );
+      .catch(next);
   } catch {
-    res
-      .status(500)
-      .send({ message: `На сервере произошла ошибка` });
+    next();
   }
 };
 

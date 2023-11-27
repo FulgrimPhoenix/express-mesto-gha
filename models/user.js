@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import bcryptjs from "bcryptjs";
+import { auth } from "../middlewares/auth";
+import { AuthError } from "../errors/errors";
 
 const userSchema = new mongoose.Schema(
   {
@@ -42,11 +44,11 @@ userSchema.statics.findUserByCredentials = async function (email, password) {
     .select("+password")
     .then((user) => {
       if (!user) {
-        return Promise.reject(new Error("Неправильные почта или пароль"));
+        return Promise.reject(new AuthError("Неправильные почта или пароль"));
       }
       return bcryptjs.compare(password, user.password).then((matched) => {
         if (!matched) {
-          return Promise.reject(new Error("Неправильные почта или пароль"));
+          return Promise.reject(new AuthError("Неправильные почта или пароль"));
         }
         return user;
       });

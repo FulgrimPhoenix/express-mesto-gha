@@ -1,6 +1,6 @@
 import User from '../models/user.js';
 
-const patchUserAvatar = (req, res) => {
+const patchUserAvatar = (req, res, next) => {
   try {
     User.findByIdAndUpdate(
       req.user._id,
@@ -11,15 +11,14 @@ const patchUserAvatar = (req, res) => {
       }
     )
       .then((user) => {
+        if (!user) {
+          throw new BadRequest("неверный запрос");
+        }
         res.status(200).json(user);
       })
-      .catch((err) =>
-        res.status(400).json({ message: "Неверный запрос" })
-      );
+      .catch(next);
   } catch {
-    res
-      .status(500)
-      .send({ message: `На сервере произошла ошибка` });
+    next();
   }
 };
 

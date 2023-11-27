@@ -1,6 +1,7 @@
+import { NotFoundError } from '../errors/errors.js';
 import Card from '../models/card.js';
 
-export const likeCard = (req, res) => {
+export const likeCard = (req, res, next) => {
   try {
     Card.findByIdAndUpdate(
       req.params.cardId,
@@ -9,21 +10,17 @@ export const likeCard = (req, res) => {
     )
       .then((card) => {
         if (!card) {
-          return res
-            .status(404)
-            .send({ message: "карточка с данным id не найдена" });
+          throw new NotFoundError('карточка не найдена')
         }
-        res.status(200).send(card);
+        return res.status(200).send(card);
       })
-      .catch(() => {
-        res.status(400).json({ message: "Неверный запрос" });
-      });
+      .catch(next);
   } catch {
-    res.status(500).send({ message: `На сервере произошла ошибка` });
+    next();
   }
 };
 
-export const dislikeCard = (req, res) => {
+export const dislikeCard = (req, res, next) => {
   try {
     Card.findByIdAndUpdate(
       req.params.cardId,
@@ -32,16 +29,12 @@ export const dislikeCard = (req, res) => {
     )
       .then((card) => {
         if (!card) {
-          return res
-            .status(404)
-            .send({ message: "карточка с данным id не найдена" });
+          throw new NotFoundError('карточка не найдена')
         }
-        res.status(200).send(card);
+        return res.status(200).send(card);
       })
-      .catch(() => {
-        res.status(400).json({ message: "Неверный запрос" });
-      });
+      .catch(next);
   } catch {
-    res.status(500).send({ message: `На сервере произошла ошибка` });
+    next();
   }
 };

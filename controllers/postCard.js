@@ -1,23 +1,20 @@
 import Card from '../models/card.js';
 
-const postCard = (req, res) => {
+const postCard = (req, res, next) => {
   try {
     req.body.owner = { _id: req.user._id };
     const newCard = new Card(req.body);
     newCard
       .save()
       .then((result) => {
-        res.status(201).json({_id: result._id});
+        if (!result) {
+          throw new BadRequest("неверный запрос");
+        }
+        return res.status(201).json({_id: result._id});
       })
-      .catch((err) =>
-        res.status(400).json({ message: "Неверный запрос" })
-      );
+      .catch(next);
   } catch {
-    return res
-      .status(500)
-      .send({
-        message: `На сервере произошла ошибка`,
-      });
+    next();
   }
 };
 
