@@ -25,3 +25,10 @@ export class userAlreadyExists extends Error {
     this.statusCode = 409;
   }
 }
+
+export class accessError extends Error {
+  constructor(message) {
+    super(message);
+    this.statusCode = 403;
+  }
+}

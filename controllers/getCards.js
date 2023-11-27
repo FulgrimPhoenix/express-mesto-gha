@@ -1,18 +1,18 @@
-import Card from '../models/card.js';
+import { BadRequest } from "../errors/errors.js";
+import Card from "../models/card.js";
 
-const getCards = (req, res) => {
+const getCards = (req, res, next) => {
   try {
     Card.find({})
-      .then((cards) => {
-        res.status(200).json(cards);
+      .then(() => {
+        throw new BadRequest("Неверный запрос");
       })
-      .catch((err) =>
-        res.status(400).json({ message: "Неверный запрос" })
-      );
+      .then((cards) => {
+        return res.status(200).json(cards);
+      })
+      .catch(next);
   } catch {
-    res
-      .status(500)
-      .send({ message: `На сервере произошла ошибка` });
+    next();
   }
 };
 
