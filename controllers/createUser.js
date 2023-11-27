@@ -23,14 +23,14 @@ const createUser = (req, res, next) => {
 
             return newUser
               .save()
-              .catch(() => {
-                throw new BadRequest("Данные введены неверно");
-              })
               .then((user) => {
-                res.status(201).json({
-                  _id: user._id,
-                  email: user.email,
-                });
+                if (user) {
+                  res.status(201).json({
+                    _id: user._id,
+                    email: user.email,
+                  });
+                }
+                throw new BadRequest("Данные введены неверно");
               })
               .catch(next);
           }

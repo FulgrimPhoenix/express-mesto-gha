@@ -3,12 +3,12 @@ import Card from "../models/card.js";
 
 const getCards = (req, res, next) => {
   try {
-    Card.find({})
-      .then(() => {
-        throw new BadRequest("Неверный запрос");
-      })
+    return Card.find({})
       .then((cards) => {
-        return res.status(200).json(cards);
+        if(cards){
+          return res.status(200).json(cards);
+        }
+        throw new BadRequest('неверный запрос');
       })
       .catch(next);
   } catch {
