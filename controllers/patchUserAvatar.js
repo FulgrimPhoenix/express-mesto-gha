@@ -1,8 +1,8 @@
-import User from "../models/user.js";
+import user from "../models/user.js";
 import { NotFoundError } from "../errors/errors.js";
 
 const patchUserAvatar = (req, res, next) => {
-  User.findByIdAndUpdate(
+  user.findByIdAndUpdate(
     req.user._id,
     { avatar: req.body.avatar },
     {

@@ -1,8 +1,8 @@
-import User from '../models/user.js';
+import user from '../models/user.js';
 
 const patchUser = (req, res, next) => {
     console.log(req.user);
-    User.findByIdAndUpdate(req.user._id, {
+    user.findByIdAndUpdate(req.user._id, {
       name: req.body.name,
       about: req.body.about,
     }, {

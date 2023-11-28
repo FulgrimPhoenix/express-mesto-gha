@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import validators from "mongoose-validators";
 import bcryptjs from "bcryptjs";
 import { auth } from "../middlewares/auth";
 import { AuthError } from "../errors/errors";
@@ -18,7 +19,8 @@ const userSchema = new mongoose.Schema(
       maxlength: 30,
     },
     avatar: {
-      type: String,
+      type: String, //Данные базово проверяются с помощью регулярного выражения. Встроенных мето
+      validate: validators.isURL,
       default:
         "https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png",
     },
@@ -30,7 +32,6 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
-      minlength: 8,
       select: false,
     },
   },
@@ -55,6 +56,6 @@ userSchema.statics.findUserByCredentials = async function (email, password) {
     });
 };
 
-const User = mongoose.model("User", userSchema);
+const user = mongoose.model("user", userSchema);
 
-export default User;
+export default user;

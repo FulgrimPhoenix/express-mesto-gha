@@ -1,17 +1,9 @@
 import { Router } from "express";
-import usersRouter from "./usersRouter.js";
-import usersIdRouter from "./userIdRouter.js";
-import usersPatchProfileRouter from "./usersPatchProfileRouter.js";
-import usersPatchAvatarRouter from "./usersPatchAvatarRouter.js";
-import cardsRouter from "./cardsRouter.js";
-import cardsPostRouter from "./cardsPostRouter.js";
-import cardsPutLikeRouter from "./cardsPutLike.js";
-import cardsDeleteLikeRouter from "./cardsDeleteLikeRouter.js";
-import cardsDeleteCardRouter from "./cardsDeleteCardRouter.js";
+import {usersRouter, usersMeRouter, usersIdRouter, usersPatchAvatarRouter, usersPatchProfileRouter} from "./usersRouter.js";
+import { cardsPostRouter, cardsDeleteCardRouter, cardsRouter, cardsPutLikeRouter, cardsDeleteLikeRouter } from "./cardsRouter.js";
 import errorPath from "./errors.js";
 import { login } from "../controllers/login.js";
 import createUser from "../controllers/createUser.js";
-import { usersMeRouter } from "./usersMeRouter.js";
 import { auth } from "../middlewares/auth.js";
 import { celebrate, Joi } from "celebrate";
 

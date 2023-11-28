@@ -1,9 +1,9 @@
-import Card from "../models/card.js";
+import card from "../models/card.js";
 import { BadRequest } from "../errors/errors.js";
 
 const postCard = (req, res, next) => {
   req.body.owner = { _id: req.user._id };
-  const newCard = new Card(req.body);
+  const newCard = new card(req.body);
   newCard
     .save()
     .then((result) => {

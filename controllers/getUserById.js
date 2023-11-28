@@ -1,8 +1,8 @@
 import { NotFoundError } from "../errors/errors.js";
-import User from "../models/user.js";
+import user from "../models/user.js";
 
 const getUserById = (req, res, next) => {
-  User.findById(req.params.id)
+  user.findById(req.params.id)
     .then((user) => {
       if (!user) {
         throw new NotFoundError("ползователь не найден");

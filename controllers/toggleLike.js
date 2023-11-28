@@ -1,8 +1,8 @@
 import { NotFoundError } from "../errors/errors.js";
-import Card from "../models/card.js";
+import card from "../models/card.js";
 
 export const likeCard = (req, res, next) => {
-  Card.findByIdAndUpdate(
+  card.findByIdAndUpdate(
     req.params.cardId,
     { $addToSet: { likes: req.user._id } },
     { new: true }
@@ -17,7 +17,7 @@ export const likeCard = (req, res, next) => {
 };
 
 export const dislikeCard = (req, res, next) => {
-  Card.findByIdAndUpdate(
+  card.findByIdAndUpdate(
     req.params.cardId,
     { $pull: { likes: req.user._id } },
     { new: true }

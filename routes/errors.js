@@ -1,9 +1,14 @@
-import { Router } from 'express';
+import { Router } from "express";
+import { NotFoundError } from "../errors/errors";
 
 const errorPath = Router();
 
-errorPath.patch("/:voidrequest", (req, res) => {
-  return res.status(404).send({ message: "не удалось найти страницу" });
+errorPath.use("/:voidrequest", (req, res, next) => {
+  try {
+    throw new NotFoundError("страница не найдена");
+  } catch (error) {
+    next(error);
+  }
 });
 
 export default errorPath;

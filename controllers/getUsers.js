@@ -1,8 +1,8 @@
 import { BadRequest } from "../errors/errors.js";
-import User from "../models/user.js";
+import user from "../models/user.js";
 
 const getUsers = (req, res, next) => {
-  User.find({})
+  user.find({})
     .then((users) => {
       return res.status(200).json(users);
     })
