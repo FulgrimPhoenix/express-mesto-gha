@@ -1,4 +1,5 @@
 import router from './routes/app.js'
+import { errorController } from './controllers/errorController.js';
 import express from 'express';
 import mongoose from 'mongoose';
 import { errors } from 'celebrate';
@@ -23,16 +24,4 @@ app.listen(PORT, (err) => {
 app.use(router);
 
 app.use(errors());
-app.use((err, req, res, next) => {
-  // если у ошибки нет статуса, выставляем 500
-  const { statusCode = 500, message } = err;
-
-  res
-    .status(statusCode)
-    .send({
-      // проверяем статус и выставляем сообщение в зависимости от него
-      message: statusCode === 500
-        ? 'На сервере произошла ошибка'
-        : message
-    });
-});
+app.use(errorController);
