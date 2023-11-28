@@ -1,8 +1,4 @@
-import getUsers from '../controllers/getUsers.js';
-import getUserById from "../controllers/getUserById.js";
-import { getMyUserInfo } from "../controllers/getMyUserInfo";
-import patchUserAvatar from "../controllers/patchUserAvatar.js";
-import patchUser from "../controllers/patchUser.js";
+import { getMyUserInfo, getUserById, getUsers, patchUser, patchUserAvatar} from '../controllers/usersUtils.js';
 import { celebrate, Joi } from "celebrate";
 import { Router } from 'express';
 
@@ -30,7 +26,7 @@ usersPatchAvatarRouter.patch(
   "/me/avatar",
   celebrate({
     body: Joi.object().keys({
-      avatar: Joi.string().required().pattern(/^https?:\/\//)
+      avatar: Joi.string().uri().required().pattern(/^https?:\/\//)
     }).unknown(true),
   }),
   patchUserAvatar

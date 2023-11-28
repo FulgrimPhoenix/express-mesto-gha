@@ -3,7 +3,7 @@ import {usersRouter, usersMeRouter, usersIdRouter, usersPatchAvatarRouter, users
 import { cardsPostRouter, cardsDeleteCardRouter, cardsRouter, cardsPutLikeRouter, cardsDeleteLikeRouter } from "./cardsRouter.js";
 import errorPath from "./errors.js";
 import { login } from "../controllers/login.js";
-import createUser from "../controllers/createUser.js";
+import {createUser} from "../controllers/usersUtils.js";
 import { auth } from "../middlewares/auth.js";
 import { celebrate, Joi } from "celebrate";
 
@@ -26,7 +26,7 @@ router.post(
       email: Joi.string().required().email(),
       password: Joi.string().required().min(8),
       name: Joi.string().min(2).max(30),
-      avatar: Joi.string().pattern(/^https?:\/\//),
+      avatar: Joi.string().uri().pattern(/^https?:\/\//),
       about: Joi.string().min(2).max(30),
     }),
   }),

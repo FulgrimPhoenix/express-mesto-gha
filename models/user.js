@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema(
       maxlength: 30,
     },
     avatar: {
-      type: String, //Данные базово проверяются с помощью регулярного выражения. Встроенных мето
+      type: String,
       validate: validators.isURL,
       default:
         "https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png",

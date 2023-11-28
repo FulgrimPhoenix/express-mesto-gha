@@ -1,7 +1,4 @@
-import postCard from "../controllers/postCard.js";
-import { deleteCard } from "../controllers/deleteCard.js";
-import getCards from '../controllers/getCards.js';
-import { likeCard, dislikeCard } from "../controllers/toggleLike.js";
+import { likeCard, dislikeCard, getCards, deleteCard, postCard } from "../controllers/cardsUtils.js";
 import { Router } from "express";
 import { celebrate, Joi } from "celebrate";
 
@@ -16,7 +13,7 @@ cardsPostRouter.post(
   celebrate({
     body: Joi.object().keys({
       name: Joi.string().required().min(2).max(30),
-      link: Joi.string().required().pattern(/^https?:\/\//),
+      link: Joi.string().uri().required().pattern(/^https?:\/\//),
     }),
   }),
   postCard
@@ -43,7 +40,6 @@ cardsPutLikeRouter.put(
   }),
   likeCard
 );
-
 
 cardsDeleteLikeRouter.delete(
   "/:cardId/likes",
