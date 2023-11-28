@@ -1,5 +1,5 @@
 import User from "../models/user.js";
-import { BadRequest } from "../errors/errors.js";
+import { NotFoundError } from "../errors/errors.js";
 
 const patchUserAvatar = (req, res, next) => {
   User.findByIdAndUpdate(
@@ -12,7 +12,7 @@ const patchUserAvatar = (req, res, next) => {
   )
     .then((user) => {
       if (!user) {
-        throw new BadRequest("неверный запрос");
+        throw new NotFoundError("страница не найдена");
       }
       res.status(200).json(user);
     })

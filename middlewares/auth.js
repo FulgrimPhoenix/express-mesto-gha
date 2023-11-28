@@ -1,23 +1,20 @@
 import jwt from "jsonwebtoken";
+import { AuthError } from "../errors/errors";
 
 export const auth = (req, res, next) => {
   const { authorization } = req.headers;
-
-  if (!authorization || !authorization.startsWith('Bearer ')) {
-    return res.status(401).json({ message: "необходима авторизация" });
-  }
-
-  const token = authorization.replace("Bearer ", "");
-
-  let payload;
-
   try {
+    if (!authorization || !authorization.startsWith("Bearer ")) {
+      throw new AuthError("Необходима авторизация");
+    }
+    const token = authorization.replace("Bearer ", "");
+
+    let payload;
+
     payload = jwt.verify(token, "some");
-  } catch {
-    res.status(401).json({ message: "необходима авторизация" });
+    req.user = payload;
+    next();
+  } catch (err) {
+    next(err);
   }
-
-  req.user = payload;
-
-  next();
 };

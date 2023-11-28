@@ -7,9 +7,6 @@ const postCard = (req, res, next) => {
   newCard
     .save()
     .then((result) => {
-      if (!result) {
-        throw new BadRequest("неверный запрос");
-      }
       return res.status(201).json({ _id: result._id });
     })
     .catch(next);
