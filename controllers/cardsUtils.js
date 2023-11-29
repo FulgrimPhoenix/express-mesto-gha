@@ -1,25 +1,25 @@
-import { BadRequest,NotFoundError, accessError } from "../errors/errors.js";
+import { BadRequest, NotFoundError, accessError } from "../errors/errors.js";
 import card from "../models/card.js";
 
 export const getCards = (req, res, next) => {
-  return card.find({})
+  return card
+    .find({})
     .then((cards) => {
-      if (cards) {
-        return res.status(200).json(cards);
-      }
-      throw new BadRequest("неверный запрос");
+      return res.status(200).json(cards);
     })
     .catch(next);
 };
 
 export const deleteCard = (req, res, next) => {
-  card.findById(req.params.cardId)
+  card
+    .findById(req.params.cardId)
     .then((card) => {
       if (!card) {
         throw new NotFoundError("карточка с данным id не найдена");
       }
       if (card.owner.toString() === req.user._id) {
-        return card.findByIdAndDelete(req.params.cardId)
+        return card
+          .findByIdAndDelete(req.params.cardId)
           .then((card) => {
             return res.status(200).json(card);
           })
@@ -42,11 +42,12 @@ export const postCard = (req, res, next) => {
 };
 
 export const likeCard = (req, res, next) => {
-  card.findByIdAndUpdate(
-    req.params.cardId,
-    { $addToSet: { likes: req.user._id } },
-    { new: true }
-  )
+  card
+    .findByIdAndUpdate(
+      req.params.cardId,
+      { $addToSet: { likes: req.user._id } },
+      { new: true }
+    )
     .then((card) => {
       if (!card) {
         throw new NotFoundError("карточка не найдена");
@@ -57,11 +58,12 @@ export const likeCard = (req, res, next) => {
 };
 
 export const dislikeCard = (req, res, next) => {
-  card.findByIdAndUpdate(
-    req.params.cardId,
-    { $pull: { likes: req.user._id } },
-    { new: true }
-  )
+  card
+    .findByIdAndUpdate(
+      req.params.cardId,
+      { $pull: { likes: req.user._id } },
+      { new: true }
+    )
     .then((card) => {
       if (!card) {
         throw new NotFoundError("карточка не найдена");

@@ -1,18 +1,8 @@
-import { BadRequest, userAlreadyExists, NotFoundError } from "../errors/errors.js";
+import { NotFoundError } from "../errors/errors.js";
 import user from "../models/user.js";
 import bcryptjs from "bcryptjs";
 
-// как вы и сказали - бд делает проверку наличия пользователя, но если он существует то пробрасывает ошибку 500, а в тестах требует 409ую.
-
 export const createUser = (req, res, next) => {
-  user
-    .findOne({ email: req.body.email })
-    .then((user) => {
-      if (user) {
-        throw new userAlreadyExists("пользователь уже существет");
-      }
-    })
-    .catch(next);
   bcryptjs.hash(req.body.password, 10).then((hash) => {
     const newUser = new user({
       name: req.body.name,
@@ -25,13 +15,10 @@ export const createUser = (req, res, next) => {
     return newUser
       .save()
       .then((user) => {
-        if (user) {
-          res.status(201).json({
-            _id: user._id,
-            email: user.email,
-          });
-        }
-        throw new BadRequest("Данные введены неверно");
+        res.status(201).json({
+          _id: user._id,
+          email: user.email,
+        });
       })
       .catch(next);
   });
@@ -42,7 +29,7 @@ export const getMyUserInfo = (req, res, next) => {
     .findById(req.user)
     .then((user) => {
       if (!user) {
-        throw new BadRequest("неверный запрос");
+        throw new NotFoundError("страница не найдена");
       }
       return res.status(200).json(user);
     })
@@ -50,7 +37,8 @@ export const getMyUserInfo = (req, res, next) => {
 };
 
 export const getUserById = (req, res, next) => {
-  user.findById(req.params.id)
+  user
+    .findById(req.params.id)
     .then((user) => {
       if (!user) {
         throw new NotFoundError("ползователь не найден");
@@ -61,7 +49,8 @@ export const getUserById = (req, res, next) => {
 };
 
 export const getUsers = (req, res, next) => {
-  user.find({})
+  user
+    .find({})
     .then((users) => {
       return res.status(200).json(users);
     })
@@ -69,17 +58,21 @@ export const getUsers = (req, res, next) => {
 };
 
 export const patchUser = (req, res, next) => {
-  console.log(req.user);
-  user.findByIdAndUpdate(req.user._id, {
-    name: req.body.name,
-    about: req.body.about,
-  }, {
-    new: true,
-    runValidators: true
-  })
+  user
+    .findByIdAndUpdate(
+      req.user._id,
+      {
+        name: req.body.name,
+        about: req.body.about,
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    )
     .then((user) => {
       if (!user) {
-        throw new BadRequest("неверный запрос");
+        throw new NotFoundError("Страница не найдена");
       }
       return res.status(200).json(user);
     })
@@ -87,14 +80,15 @@ export const patchUser = (req, res, next) => {
 };
 
 export const patchUserAvatar = (req, res, next) => {
-  user.findByIdAndUpdate(
-    req.user._id,
-    { avatar: req.body.avatar },
-    {
-      new: true,
-      runValidators: true,
-    }
-  )
+  user
+    .findByIdAndUpdate(
+      req.user._id,
+      { avatar: req.body.avatar },
+      {
+        new: true,
+        runValidators: true,
+      }
+    )
     .then((user) => {
       if (!user) {
         throw new NotFoundError("страница не найдена");

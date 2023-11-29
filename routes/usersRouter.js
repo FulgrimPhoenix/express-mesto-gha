@@ -3,14 +3,10 @@ import { celebrate, Joi } from "celebrate";
 import { Router } from 'express';
 
 export const usersRouter = Router();
-export const usersIdRouter = Router();
-export const usersMeRouter = Router();
-export const usersPatchAvatarRouter = Router();
-export const usersPatchProfileRouter = Router();
 
 usersRouter.get('/', getUsers);
 
-usersIdRouter.get(
+usersRouter.get(
   "/:id",
   celebrate({
     params: Joi.object().keys({
@@ -20,9 +16,9 @@ usersIdRouter.get(
   getUserById
 );
 
-usersMeRouter.get("/me", getMyUserInfo);
+usersRouter.get("/me", getMyUserInfo);
 
-usersPatchAvatarRouter.patch(
+usersRouter.patch(
   "/me/avatar",
   celebrate({
     body: Joi.object().keys({
@@ -32,7 +28,7 @@ usersPatchAvatarRouter.patch(
   patchUserAvatar
 );
 
-usersPatchProfileRouter.patch(
+usersRouter.patch(
   "/me",
   celebrate({
     body: Joi.object().keys({

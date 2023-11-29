@@ -3,7 +3,6 @@ import { AuthError } from "../errors/errors";
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 export const auth = (req, res, next) => {
-
   try {
     if (!req.cookies.jwt) {
       throw new AuthError("Необходима авторизация");
@@ -12,8 +11,14 @@ export const auth = (req, res, next) => {
     const token = req.cookies.jwt;
 
     let payload;
-
-    payload = jwt.verify(token, NODE_ENV === "production" ? JWT_SECRET : "secret");
+    try {
+      payload = jwt.verify(
+        token,
+        NODE_ENV === "production" ? JWT_SECRET : "secret"
+      );
+    } catch {
+      throw new AuthError("Необходима авторизация");
+    }
     req.user = payload;
     next();
   } catch (err) {

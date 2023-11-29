@@ -2,13 +2,9 @@ import { likeCard, dislikeCard, getCards, deleteCard, postCard } from "../contro
 import { Router } from "express";
 import { celebrate, Joi } from "celebrate";
 
-export const cardsPostRouter = Router();
-export const cardsDeleteCardRouter = Router();
 export const cardsRouter = Router();
-export const cardsPutLikeRouter = Router();
-export const cardsDeleteLikeRouter = Router();
 
-cardsPostRouter.post(
+cardsRouter.post(
   "/",
   celebrate({
     body: Joi.object().keys({
@@ -19,7 +15,7 @@ cardsPostRouter.post(
   postCard
 );
 
-cardsDeleteCardRouter.delete(
+cardsRouter.delete(
   "/:cardId",
   celebrate({
     params: Joi.object().keys({
@@ -31,7 +27,7 @@ cardsDeleteCardRouter.delete(
 
 cardsRouter.get('/', getCards);
 
-cardsPutLikeRouter.put(
+cardsRouter.put(
   "/:cardId/likes",
   celebrate({
     params: Joi.object().keys({
@@ -41,7 +37,7 @@ cardsPutLikeRouter.put(
   likeCard
 );
 
-cardsDeleteLikeRouter.delete(
+cardsRouter.delete(
   "/:cardId/likes",
   celebrate({
     params: Joi.object().keys({

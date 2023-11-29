@@ -1,7 +1,5 @@
 import mongoose from "mongoose";
-import validators from "mongoose-validators";
 import bcryptjs from "bcryptjs";
-import { auth } from "../middlewares/auth";
 import { AuthError } from "../errors/errors";
 
 const userSchema = new mongoose.Schema(
@@ -20,7 +18,12 @@ const userSchema = new mongoose.Schema(
     },
     avatar: {
       type: String,
-      validate: validators.isURL,
+      validate: {
+        validator(value) {
+          return /^https?:\/\//.test(value);
+        },
+        message: "в данном поле должна быть ссылка",
+      },
       default:
         "https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png",
     },
