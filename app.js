@@ -1,3 +1,4 @@
+import { requestLogger, errorLogger } from './middlewares/logger.js';
 import router from './routes/app.js'
 import { errorController } from './controllers/errorController.js';
 import express from 'express';
@@ -5,6 +6,7 @@ import mongoose from 'mongoose';
 import { errors } from 'celebrate';
 import cookieParser from "cookie-parser";
 import * as dotenv from 'dotenv';
+
 dotenv.config();
 const app = express();
 app.use(express.json());
@@ -21,7 +23,9 @@ app.listen(PORT, (err) => {
   err ? console.log(err) : console.log(`server listening PORT:${PORT}`);
 });
 
+app.use(requestLogger);
 app.use(router);
+app.use(errorLogger);
 
 app.use(errors());
 app.use(errorController);
